@@ -35,10 +35,10 @@ if ! make; then
 	echo;
 	echo;
 fi
-popd
 
 cp cpu-energy-meter "$meterdir"
 
+popd
 
 echo $d
 exit 1;

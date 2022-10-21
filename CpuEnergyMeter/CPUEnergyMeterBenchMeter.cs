@@ -16,9 +16,18 @@ namespace CpuEnergyMeter
         void foo(Barrier b)
         {
             ProcessStartInfo psi = new ProcessStartInfo(exec);
+	    psi.RedirectStandardInput = true;
+//	    psi.RedirectStandardOutput = true;
+//	    info.UseShellExecute = false;
+//	    Process p = Process.Start(info);
+
+//	    p.StandardInput.AutoFlush = true;
+//	    p.StandardInput.WriteLine(scriptcode);
+
             b.SignalAndWait();
             var p = Process.Start(psi);
             Thread.Sleep(1000);
+	    p.Kill();
             p.StandardInput.Close();
         }
         public CPUEnergyMeterBenchMeter()
