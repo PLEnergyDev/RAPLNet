@@ -21,7 +21,7 @@ namespace CpuEnergyMeter
             if (!File.Exists(preparescript))
                 File.WriteAllText(preparescript, Resources.getandbuild);
 
-            ProcessStartInfo psi = new ProcessStartInfo("/bin/sh");
+            ProcessStartInfo psi = new ProcessStartInfo("/bin/bash");
             psi.ArgumentList.Add(preparescript);
             psi.ArgumentList.Add(cem_zip);
             psi.ArgumentList.Add(url);
