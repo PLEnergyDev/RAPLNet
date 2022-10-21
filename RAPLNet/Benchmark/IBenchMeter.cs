@@ -1,11 +1,11 @@
 ﻿namespace RAPLNet.Benchmark;
 
-interface IBenchMeter
+public interface IBenchMeter
 {
     public void Start();
     public object End();
 }
-interface IBenchMeter<T> : IBenchMeter
+public interface IBenchMeter<T> : IBenchMeter
 {
     object IBenchMeter.End() => End();
     public T End();

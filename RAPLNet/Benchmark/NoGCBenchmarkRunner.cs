@@ -1,6 +1,6 @@
 ﻿namespace RAPLNet.Benchmark;
 
-class NoGCBenchmarkRunner : IBenchmarkRunner
+public class NoGCBenchmarkRunner : IBenchmarkRunner
 {
     IBenchMeter Meter;
 
