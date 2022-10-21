@@ -13,17 +13,25 @@ namespace CpuEnergyMeter
     {
         Thread mt;
         
-        void foo(Barrier b)
+        string foo(Barrier b, out Action kill)
         {
+            int k;
+            Process p = null;
+            kill = () =>
+            {
+                ProcessStartInfo pso = new ProcessStartInfo("/usr/bin/kill");
+                pso.ArgumentList.Add("-INT");
+                pso.ArgumentList.Add($"{p.Id}");
+                using var killprocess = Process.Start(pso);
+            };
             ProcessStartInfo psi = new ProcessStartInfo(exec);
+            string s;
             b.SignalAndWait();
-            var p = Process.Start(psi);
-            Console.WriteLine(p.Id);
-            Thread.Sleep(1000);
-            ProcessStartInfo pso = new ProcessStartInfo("/usr/bin/kill");
-            pso.ArgumentList.Add("-INT");
-            pso.ArgumentList.Add($"{p.Id}");
-            Process.Start(pso);
+            p = Process.Start(psi);
+            s = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            return s;
+
         }
         public CPUEnergyMeterBenchMeter()
         {
@@ -67,11 +75,21 @@ namespace CpuEnergyMeter
         public void Start(Action a)
         {
             Barrier b = new Barrier(2);
-            Thread t = new Thread(()=>foo(b));
+            string output;
+            Action killAction = ()=>Console.WriteLine("unassigned");
+            Thread t = new Thread(()=>output = foo(b, out killAction));
             t.Start();
             b.SignalAndWait();
-            a();
-
+            try
+            {
+                a();
+            }
+            finally
+            {
+                killAction();
+                //b.SignalAndWait();
+            }
+            
         }
     }
 }
