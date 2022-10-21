@@ -22,12 +22,15 @@ namespace CpuEnergyMeter
                 ProcessStartInfo pso = new ProcessStartInfo("/usr/bin/kill");
                 pso.ArgumentList.Add("-INT");
                 pso.ArgumentList.Add($"{p.Id}");
+                pso.RedirectStandardOutput = true;
                 using var killprocess = Process.Start(pso);
             };
             ProcessStartInfo psi = new ProcessStartInfo(exec);
             string s;
+            p = new Process() { StartInfo = psi, };
+
             b.SignalAndWait();
-            p = Process.Start(psi);
+            p.Start();
             s = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
             return s;
