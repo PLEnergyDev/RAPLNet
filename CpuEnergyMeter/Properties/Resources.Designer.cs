@@ -59,5 +59,17 @@ namespace CpuEnergyMeter.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #!/bin/bash
+        ///
+        ///exit(1);
+        ///.
+        /// </summary>
+        internal static string getandbuild {
+            get {
+                return ResourceManager.GetString("getandbuild", resourceCulture);
+            }
+        }
     }
 }
