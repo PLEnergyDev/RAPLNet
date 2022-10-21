@@ -85,6 +85,7 @@ namespace CpuEnergyMeter
             b.SignalAndWait();
             try
             {
+                Thread.Sleep(1000);
                 a();
             }
             finally
