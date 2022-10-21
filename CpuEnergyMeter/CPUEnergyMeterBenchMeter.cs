@@ -25,7 +25,7 @@ namespace CpuEnergyMeter
                 pso.RedirectStandardOutput = true;
                 using var killprocess = Process.Start(pso);
             };
-            ProcessStartInfo psi = new ProcessStartInfo(exec);
+            ProcessStartInfo psi = new ProcessStartInfo(exec){RedirectStandardOutput=true};
             string s;
             p = new Process() { StartInfo = psi, };
 
@@ -86,14 +86,14 @@ namespace CpuEnergyMeter
             try
             {
                 Thread.Sleep(1000);
-                a();
+            a();
             }
             finally
             {
                 killAction();
                 //b.SignalAndWait();
             }
-            
+
         }
     }
 }
