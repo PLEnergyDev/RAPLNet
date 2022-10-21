@@ -17,6 +17,7 @@ namespace CpuEnergyMeter
             var cpu_energy_meter_root = Path.Combine(root, "cpu_energy_meter");
             var cem_zip = Path.Combine(cpu_energy_meter_root, "cpu-energy-meter-1.2.tar.gz");
             var preparescript = Path.Combine(cpu_energy_meter_root, "getandbuild.sh");
+            Directory.CreateDirectory(cpu_energy_meter_root);
             if (!File.Exists(preparescript))
                 File.WriteAllText(preparescript, Resources.getandbuild);
 
