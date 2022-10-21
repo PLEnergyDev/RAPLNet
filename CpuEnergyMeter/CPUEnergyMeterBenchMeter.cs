@@ -23,6 +23,8 @@ namespace CpuEnergyMeter
 
             ProcessStartInfo psi = new ProcessStartInfo("/bin/sh");
             psi.ArgumentList.Add(preparescript);
+            psi.ArgumentList.Add(cem_zip);
+            psi.ArgumentList.Add(url);
 
             var process = Process.Start(psi);
             process.WaitForExit();
