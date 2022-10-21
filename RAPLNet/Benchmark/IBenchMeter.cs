@@ -2,11 +2,11 @@
 
 public interface IBenchMeter
 {
-    public void Start();
-    public object End();
+    public void Start(Action a);
+    //public object End();
 }
-public interface IBenchMeter<T> : IBenchMeter
-{
-    object IBenchMeter.End() => End();
-    public T End();
-}
+//public interface IBenchMeter<T> : IBenchMeter
+//{
+//    object IBenchMeter.End() => End();
+//    public T End();
+//}

@@ -10,6 +10,7 @@ namespace Sample
         {
             var m = new CPUEnergyMeterBenchMeter();
             m.Prepare();
+            m.Start(()=> Thread.Sleep(1000));
 
             BenchmarkCollector bc = new BenchmarkCollector();
             var bms = bc.CollectBenchmarks(new Program().GetType().Assembly);

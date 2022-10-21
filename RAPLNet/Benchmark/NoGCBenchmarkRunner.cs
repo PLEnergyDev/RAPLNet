@@ -12,7 +12,7 @@ public class NoGCBenchmarkRunner : IBenchmarkRunner
         Console.WriteLine("Initializing benchmark");
         var state = lf.Initialize(lf.BenchmarkInfo);
         Console.WriteLine("Warmup");
-        for (var i = lf.BenchmarkInfo.Iterations??DefaultIterations; i>0 ; i--)
+        for (var i = lf.BenchmarkInfo.Iterations ?? DefaultIterations; i > 0; i--)
             state = lf.WarmupIteration(state);
         Console.WriteLine("Warmup done");
 
@@ -27,10 +27,12 @@ public class NoGCBenchmarkRunner : IBenchmarkRunner
 
         Console.WriteLine("Running");
 
-        Meter.Start();
-        for (var i = lf.BenchmarkInfo.Iterations?? DefaultIterations; i > 0; i--)
-            state = lf.Run(state);
-        Meter.End();
+        Meter.Start(() =>
+        {
+            for (var i = lf.BenchmarkInfo.Iterations ?? DefaultIterations; i > 0; i--)
+                state = lf.Run(state);
+        });
+        
 
         GC.EndNoGCRegion();
 
