@@ -2,6 +2,6 @@
 
 interface IBenchmarkRunner
 {
-    public void Run(IBenchmarkLifecycle lf);
+    public void Run(IBenchmarkLifecycle lf, IBenchMeter m);
 
 }

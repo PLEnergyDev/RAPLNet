@@ -2,11 +2,9 @@
 
 public class NoGCBenchmarkRunner : IBenchmarkRunner
 {
-    IBenchMeter Meter;
-
     public long DefaultIterations { get; set; } = 10;
     public long MemorySize { get; set; } = 250_000_000;
-    public void Run(IBenchmarkLifecycle lf)
+    public void Run(IBenchmarkLifecycle lf, IBenchMeter m)
     {
         Console.WriteLine($"BenchmarkLifecycle: {lf?.GetType().FullName}");
         Console.WriteLine("Initializing benchmark");
@@ -27,7 +25,7 @@ public class NoGCBenchmarkRunner : IBenchmarkRunner
 
         Console.WriteLine("Running");
 
-        Meter.Start(() =>
+        m.Start(() =>
         {
             for (var i = lf.BenchmarkInfo.Iterations ?? DefaultIterations; i > 0; i--)
                 state = lf.Run(state);
