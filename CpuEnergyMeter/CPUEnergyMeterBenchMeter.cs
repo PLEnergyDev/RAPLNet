@@ -86,7 +86,7 @@ namespace CpuEnergyMeter
         {
             Barrier b = new Barrier(2);
             string output;
-            Action killAction = ()=>Console.WriteLine("unassigned");
+            Action killAction = null;
             Thread meterThread = new Thread(()=>output = foo(b, out killAction));
             meterThread.Start();
             b.SignalAndWait();
@@ -102,7 +102,15 @@ namespace CpuEnergyMeter
             }
             finally
             {
+                int killcount = 10;
+                
+                while (killAction==null && killcount-- > 0)
+                {
+                    Thread.Sleep((int)Math.Pow(2, 10 - killcount));
+                    Console.WriteLine("No killaction assigned!");
+                }
                 killAction();
+                meterThread.Join();
                 //b.SignalAndWait();
             }
             return new EnergyResult();
