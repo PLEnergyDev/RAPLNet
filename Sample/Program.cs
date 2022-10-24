@@ -1,9 +1,27 @@
 ﻿using CpuEnergyMeter;
 
+using RAPLNet.Attributes;
 using RAPLNet.Benchmark;
 
 namespace Sample
 {
+    public class VariablesBenchmarks
+    {
+        [Benchmark("Variables", "Tests local variables")]
+        public static long LocalVariable([BenchmarkLoopiterations] long loopIterations)
+        {
+            Console.WriteLine("inside");
+            long localA = 0, localB = 1;
+            for (long i = 0; i < loopIterations; i++)
+            {
+                Console.WriteLine("loop + " + i);
+                localA += localB + i;
+
+            }
+            return localA;
+        }
+    }
+
     internal class Program
     {
         static void Main(string[] args)

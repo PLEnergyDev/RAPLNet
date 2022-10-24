@@ -29,7 +29,7 @@ if ! make; then
        echo ;
 	echo ;
 	echo Build Error? try running
-	echo "sudo apt install build-essential gcc libcap-dev"
+	echo "sudo apt install build-essential make gcc libcap-dev"
 	echo;
 	echo;
 	echo;
