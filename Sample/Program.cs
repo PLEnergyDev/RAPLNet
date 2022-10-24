@@ -14,6 +14,7 @@ namespace Sample
 
             BenchmarkCollector bc = new BenchmarkCollector();
             var bms = bc.CollectBenchmarks(new Program().GetType().Assembly);
+	    Console.WriteLine(bms.Count());
             foreach (var bm in bms)
             {
                 new NoGCBenchmarkRunner()
