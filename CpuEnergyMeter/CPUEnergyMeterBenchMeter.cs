@@ -39,6 +39,7 @@ namespace CpuEnergyMeter
             b.SignalAndWait();
             s = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
+            Console.WriteLine(s);
             return s;
 
         }
