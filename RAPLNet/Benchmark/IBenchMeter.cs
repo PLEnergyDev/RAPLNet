@@ -1,8 +1,19 @@
 ﻿namespace RAPLNet.Benchmark;
 
+
+public interface IBenchmarkResult
+{
+
+}
+
 public interface IBenchMeter
 {
-    public void Start(Action a);
+    public IBenchmarkResult Start(Action a);
+}
+public interface IBenchMeter<TResult> : IBenchMeter where TResult : IBenchmarkResult
+{
+    IBenchmarkResult IBenchMeter.Start(Action a) => Start(a);
+    new TResult Start(Action a);
     //public object End();
 }
 //public interface IBenchMeter<T> : IBenchMeter

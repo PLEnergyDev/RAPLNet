@@ -9,7 +9,12 @@ using RAPLNet.Benchmark;
 
 namespace CpuEnergyMeter
 {
-    public class CPUEnergyMeterBenchMeter : IBenchMeter
+    public class EnergyResult : IBenchmarkResult
+    {
+
+    }
+
+    public class CPUEnergyMeterBenchMeter : IBenchMeter<EnergyResult>
     {
         Thread mt;
         
@@ -75,7 +80,7 @@ namespace CpuEnergyMeter
         }
 
 
-        public void Start(Action a)
+        public EnergyResult Start(Action a)
         {
             Barrier b = new Barrier(2);
             string output;
@@ -86,13 +91,14 @@ namespace CpuEnergyMeter
             try
             {
                 Thread.Sleep(1000);
-            a();
+                a();
             }
             finally
             {
                 killAction();
                 //b.SignalAndWait();
             }
+            return new EnergyResult();
 
         }
     }

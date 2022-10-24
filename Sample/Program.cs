@@ -19,7 +19,7 @@ namespace Sample
                 new NoGCBenchmarkRunner()
                 {
 
-                }.Run(bm);
+                }.Run(bm, m);
 
             }
         }
