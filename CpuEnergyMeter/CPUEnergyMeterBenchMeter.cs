@@ -36,6 +36,7 @@ namespace CpuEnergyMeter
 
             b.SignalAndWait();
             p.Start();
+            b.SignalAndWait();
             s = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
             return s;
@@ -85,13 +86,18 @@ namespace CpuEnergyMeter
             Barrier b = new Barrier(2);
             string output;
             Action killAction = ()=>Console.WriteLine("unassigned");
-            Thread t = new Thread(()=>output = foo(b, out killAction));
-            t.Start();
+            Thread meterThread = new Thread(()=>output = foo(b, out killAction));
+            meterThread.Start();
             b.SignalAndWait();
-            try
+            Thread t = new Thread(() =>
             {
+                b.SignalAndWait();
                 Thread.Sleep(1000);
                 a();
+            });
+            try
+            {
+                t.Join();
             }
             finally
             {
